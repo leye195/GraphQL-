@@ -5,7 +5,7 @@
 - GraphQL은 페이스북에서 만든 쿼리 언어로서 요즘 매운 핫 하며 인기 있음
 - 기존에 사용하던 REST API를 대체 할 수 있으며 client가 기존에 backend와 통신해서
   데이터를 가져온던 방식에서 발생하는 over-fetching과 under-fetching을 해결해주며,
-  기존의 URL 체계 방식이 아닌 하나의 end-point를 통해 데이터를 요청해서 받을수 있게 해줌
+  기존의 URL 체계 방식이 아닌 하나의 end-point를 통해 데이터를 요청해서 받을수 있게 해줌으로 웹 클라이언트가 데이터를 서버로 부터 효율적으로 가져오게 해줌
 
 ### over-fetching이란?
 
