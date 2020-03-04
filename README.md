@@ -22,6 +22,8 @@ frontend가 backend와 데이터를 요청해서 제공받은 데이터를 중�
 - user/1
   3개의 요청이 전부 다 완료됟때까지 기다려야 만 화면이 에러 없이 잘 보인다는것 [요청이 3번 오고가야 문제 없이 완료됨]
 
+- graphql은 1개의 end-point 만을 통해 통신을 진행하게 하여 under-fetching을 해결
+
 #### 어떤 backend를 골라서 선택하던지 GraphQL을 적용 가능, client(frontend)는 GraphQL 서버로 요청을 보내고, GraphQL 서버는 다른 API 혹은 DB와의 통신을 진행하여 정보를 받은 뒤 frontend에서 사용될 정보들만 전달해준다.
 
 ### GraphQL 사용:
@@ -39,9 +41,10 @@ server.start(()=>console.log("GraphQL server is running"));
 ```
 
 - schema.graphql 와 resolver 정의
-  schema 문서에는 어떤 데이터를 받을지 작성하는데 주로 2가지 를 정의 해준다
+  schema 문서에는 3가지 를 정의 해준다
   query: 정보 요청시 사용
   mutation: 데이터 변형(update,delete)시 사용
+  subscribe: (아직 뭔지 모름...)
 
 ```
 ex) schema
