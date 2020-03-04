@@ -18,9 +18,8 @@ frontend가 backend와 데이터를 요청해서 제공받은 데이터를 중�
 아래 3개의 API에 요청을 보낸다고 하자
 
 - /feed
-- notifications
-- user/1
-  3개의 요청이 전부 다 완료됟때까지 기다려야 만 화면이 에러 없이 잘 보인다는것 [요청이 3번 오고가야 문제 없이 완료됨]
+- /notifications
+- /user/1 (3개의 요청이 전부 다 완료됟때까지 기다려야 만 화면이 에러 없이 잘 보인다는것 [요청이 3번 오고가야 문제 없이 완료됨])
 
 - graphql은 1개의 end-point 만을 통해 통신을 진행하게 하여 under-fetching을 해결
 
