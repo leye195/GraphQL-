@@ -1,4 +1,4 @@
-### GraphQL 공부
+### GraphQL 공부 - Server
 
 ## GraphQL 이란?
 
@@ -106,7 +106,10 @@ query{
     }
 }
 mutation{
-   addMovie(title:"pung",rating:10)
+   addMovie(title:"pung",rating:10){
+       title
+   }
+   deleteMovie(id:12)
 }
 
 ```
