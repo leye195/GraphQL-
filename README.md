@@ -42,11 +42,11 @@ server.start(()=>console.log("GraphQL server is running"));
 - schema.graphql 와 resolver 정의
   schema 문서에는 3가지 를 정의 해준다
   query: 정보 요청시 사용
-  mutation: 데이터 변형(update,delete)시 사용
+  mutation: 데이터 변형(update,delete)시 사용 함
   subscribe: (아직 뭔지 모름...)
 
 ```
-ex) schema
+ex) schema.graphql
 type Movie{
     id: Int!
     title: String!
@@ -73,4 +73,40 @@ const resolvers={
         deleteMovie:(_,{id})=>deleteMovie(id)
     }
 }
+
+ex) db
+export const addMovie=(title,rating)=>{
+    const newMovie={
+    id:`${movies.length+1}`,
+    title,
+    rating
+    }
+    movies.push(newMovie);
+    return newMovie;
+}
+export const deleteMovie=(id)=>{
+    const cleanedMovie = movies.filter(movie=>movie.id!==id);
+    if(cleanedMovie.length<movies.length){
+        movies = cleanedMovie;
+        return True;
+    }
+    return False;
+}
+
+
+Playground 에서 확인 할 경우
+query{
+    movies{
+        title
+        rating
+    }
+    movie(id:12){
+        title
+        rating
+    }
+}
+mutation{
+   addMovie(title:"pung",rating:10)
+}
+
 ```

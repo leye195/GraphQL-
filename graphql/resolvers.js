@@ -15,9 +15,13 @@ import { getMovies, getById, getRecommendations } from "./db";
 //view 유사, schema는 url 같은 것이라고 볼 수 있다.
 const resolvers = {
   Query: {
+    // arg를 활용해 인자를 받아올수 있음
     movies: (_, { limit, rating }) => getMovies(limit, rating),
     movie: (_, { id }) => getById(id),
-    recommendations: (_, { id }) => getRecommendations(id)
-  }
+    recommendations: (_, { id }) => getRecommendations(id),
+  },
+  /*Mutation:{
+    addMovie:(_,{title})=>addMovie(title);
+  }*/
 };
 export default resolvers;

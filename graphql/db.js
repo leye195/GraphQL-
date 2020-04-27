@@ -30,29 +30,30 @@
     gender: "female"
   }
 ];*/
-/*
+
 let movies = [
   {
     id: 0,
     name: "Star Wars - The new one",
-    score: 0.1
+    score: 0.1,
   },
   {
     id: 1,
     name: "Avengers -The new one",
-    score: 0.5
+    score: 0.5,
   },
   {
     id: 2,
     name: "Star Wars - The one",
-    score: 0.1
+    score: 0.1,
   },
   {
     id: 3,
     name: "Aven -The new one",
-    score: 0.5
-  }
+    score: 0.5,
+  },
 ];
+/*
 export const getMovies = () => movies;
 export const getById = id => {
   const filteredMovies = movies.filter(item => item.id === id);
@@ -88,29 +89,35 @@ export const getMovies = async (limit, rating) => {
   }
   const {
     data: {
-      data: { movies }
-    }
+      data: { movies },
+    },
   } = await axios.get(requestURL);
   return movies;
-  /*return fetch(`${requestURL}`)
-    .then(res => res.json())
-    .then(json => json.data.movies);*/
 };
-export const getById = async id => {
+export const getById = async (id) => {
   const {
     data: {
-      data: { movie }
-    }
+      data: { movie },
+    },
   } = await axios.get(`${URL}/movie_details.json?movie_id=${id}`);
   return movie;
 };
 
-export const getRecommendations = async id => {
+export const getRecommendations = async (id) => {
   const requestURL = `${URL}/movie_suggestions.json?movie_id=${id}`;
   const {
     data: {
-      data: { movies }
-    }
+      data: { movies },
+    },
   } = await axios.get(requestURL);
   return movies;
+};
+
+export const deletePerson = (id) => {
+  const cleanedMovies = movies.filter((movie) => id !== movie.id);
+  if (cleanedMovies.length < movies.length) {
+    movies = cleanedMovies;
+    return true;
+  }
+  return false;
 };
