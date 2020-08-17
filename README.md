@@ -173,10 +173,67 @@ Payment:{
 
 ```
 
+### Subscription
+
+- subscription은 기본적으로 query 처럼 데이터 조회를 위해 사용되지만 작동 방식에 큰 차이가 있다.
+  query와 mutation은 전통적인 서버/클라이언트 모델을 따르지만, subscription은 발행/구독 모델을 따른다.
+
+- 접속자가 많은 서버에서 동시 다발적으로 변경이 발생하는 경우 클라이언트에서 아무리 자주 호출해도 완벽하게
+  실시간을 달성하기 어렵고 변경이 자주 발생하지 않는 서버의 경우 클라이언트에서 자주 호출하는것 자체가 자원 낭비와 부담이 된다.
+
+- pub/sub 모델을 따르면 gql의 subscription은 서버에서 발생하는 이벤트를 클라이언트에서 좀 더 효과적으로 인지할수 있게 해준다. subscription은 web socket 프로토콜을 사용해 클라이언트와 서버의 연결을 유지하며 서버에서 발생하는 이벤트를 실시간으로 수신받을수 있다.
+
+```
+import {ApolloServer,gql,PubSub} from "apollo-server";
+
+//객체 생성
+const pubsub = new PubSub();
+
+
+//schema 정의
+const typeDefs = gql`
+    type Query{
+        ping:String
+    }
+    type Subscription{
+        messageAdded: String
+    }
+`;
+
+//resolver 구현
+ex)
+const resolvers = {
+    Query:{
+        ping:()=>"pong";
+    },
+    Mutation{
+        addPost:(_,args,{postModel})=>{
+            pubsub.publish("POST_ADDED",{postAdded:args})
+            return postModel.addPost(args);
+        }
+    },
+    Subscription:{
+        postAdded:{
+            subscribe:()=>pubsub.asyncIterator(["POST_ADDED"])
+        }
+    }
+    //asyncIterator()에 이벤트 명을 넘겨주면, subscription은 messageAdded가 발생할때 마다
+    //반응하게 된다.
+}
+
+```
+
+- 이벤트를 발생시킬때는 PubSub 객체의 publish() 메서드를 이용해 이벤트 이름과 이벤트 객체를 인자로 넘겨준다.
+
+```
+pubsub.publish("messageAdded",{
+    messageAdded:()=>"message"
+});
+```
+
 ### GraphQL 활용을 위한 다양한 lib
 
-gql 자체는 쿼리언어로서 gql하나로만으로는 할 수 있는게 없다. gql을 실제 구체적으로 활용할 수 있게 도와주는
-라이브러리를 활용해야하낟.
+gql 자체는 쿼리언어로서 gql하나로만으로는 할 수 있는게 없다. gql을 실제 구체적으로 활용할 수 있게 도와주는 라이브러리를 활용해야하낟.
 
 ### GraphQL 사용:
 
